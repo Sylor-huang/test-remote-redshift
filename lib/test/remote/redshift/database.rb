@@ -40,11 +40,11 @@ module Test
         def clean_old_database(days_ago: 1)
           time_before = Time.now.to_i - 2 * 60 * 24  #清理2分钟前的
           dbs = `psql #{psql_uri} -c "SELECT datname FROM pg_database WHERE datname ~ '#{database_prefix}_[0-9]+_[a-z0-9]+$';"`
-          Rails.logger.info("dbs: #{dbs}") 
+          p "dbs: #{dbs}"
           dbs.split("\n")[2..-2] || [].each do |db|
             db_time = db.strip!.split("_")[-2].to_i
-            Rails.logger.info("db_time: #{db_time}")
-            Rails.logger.info("time_before: #{time_before}")
+            p "db_time: #{db_time}"
+            p "time_before: #{time_before}"
             if db_time > 0 && db_time < time_before
               drop_database(db) 
             end
