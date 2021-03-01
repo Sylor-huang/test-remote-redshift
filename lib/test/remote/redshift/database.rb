@@ -41,7 +41,7 @@ module Test
           time_before = Time.now.to_i - 2 * 60 * 24  #清理2分钟前的
           dbs = `psql #{psql_uri} -c "SELECT datname FROM pg_database WHERE datname ~ '#{database_prefix}_[0-9]+_[a-z0-9]+$';"`
           p "dbs: #{dbs}"
-          dbs.split("\n")[2..-2] || [].each do |db|
+          (dbs.split("\n")[2..-2] || []).each do |db|
             db_time = db.strip!.split("_")[-2].to_i
             p "db_time: #{db_time}"
             p "time_before: #{time_before}"
