@@ -44,6 +44,7 @@ module Test
           dbs.split("\n")[2..-2] || [].each do |db|
             db_time = db.strip!.split("_")[-2].to_i
             p "db_time: #{db_time}"
+            p "time_before: #{time_before}"
             if db_time > 0 && db_time < time_before
               drop_database(db) 
             end
